@@ -452,6 +452,10 @@ module SwaggerClient
           end
         end
       else # model
+        # If value has resource_type - use it to deserialize
+        unless value[:resource_type].nil?
+          type = value[:resource_type].to_sym
+        end
         temp_model = SwaggerClient.const_get(type).new
         temp_model.build_from_hash(value)
       end
@@ -498,5 +502,6 @@ module SwaggerClient
         value
       end
     end
+
   end
 end
